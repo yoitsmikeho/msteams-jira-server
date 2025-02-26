@@ -78,10 +78,10 @@ jobs:
             --build-number="${{ github.run_id }}"
 
       - name: Run Tests
-        run: jf dotnet test --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml"
+        run: jf dotnet test MicrosoftTeamsJiraIntegration.sln --no-build
 
       - name: Publish application
-        run: jf dotnet publish -c Release -o 'publish/jira'
+        run: jf dotnet publish MicrosoftTeamsJiraIntegration.sln -c Release -o 'publish/jira'
 
       - name: Upload Artifacts to Artifactory
         run: |
