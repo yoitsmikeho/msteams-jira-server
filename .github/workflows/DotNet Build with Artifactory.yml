@@ -88,11 +88,13 @@ jobs:
       #    junit_files: ${{ github.workspace }}/tests/artifacts/*test-result.xml
           
       - name: Publish application
-        run: jf dotnet publish -c Release -o 'publish/jira'
+        run: jf dotnet publish -c Release 
+        #-o 'publish/jira'
 
       - name: Upload Artifacts to Artifactory
         run: |
-          jf rt upload "publish/jira" "mikeho-msteams-jira-nuget-local/dotnet-sample"
+          dir D:\a\msteams-jira-server\msteams-jira-server\src\MicrosoftTeamsIntegration.Jira\ClientApp\dist
+          jf rt upload "D:\a\msteams-jira-server\msteams-jira-server\src\MicrosoftTeamsIntegration.Jira\ClientApp\dist\*.nupkg" "mikeho-msteams-jira-nuget-local/dotnet-sample"
                
       - name: Publish build info
         run: |
