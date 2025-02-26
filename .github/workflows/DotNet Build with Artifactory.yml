@@ -83,11 +83,11 @@ jobs:
       - name: Run Tests
         run: jf dotnet test --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml"
 
-      - name: Publish test report
-        uses: EnricoMi/publish-unit-test-result-action/composite@v2
-        if: always()
-        with:
-          junit_files: ${{ github.workspace }}/tests/artifacts/*test-result.xml
+      #- name: Publish test report
+      #  uses: EnricoMi/publish-unit-test-result-action/composite@v2
+      #  if: always()
+      #  with:
+      #    junit_files: ${{ github.workspace }}/tests/artifacts/*test-result.xml
           
       - name: Publish application
         run: jf dotnet publish MicrosoftTeamsJiraIntegration.sln -c Release -o 'publish/jira'
