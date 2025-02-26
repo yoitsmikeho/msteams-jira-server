@@ -59,6 +59,7 @@ jobs:
       - name: DotNet Configure
         run: |
           jf dotnet-config --repo-resolve="mikeho-msteams-jira-nuget-remote"
+          jf nuget-config --repo-resolve="mikeho-msteams-jira-nuget-remote"
       
       - name: Restore Dependencies from Artifactory
         run: |
@@ -68,9 +69,9 @@ jobs:
         run: |
           jf curation-audit
       
-      #- name: Audit Source Code
-      #  run: |
-      #    jf audit --licenses --format=table --gradle=true
+      - name: Audit Source Code
+        run: |
+          jf audit --licenses --format=table --nuget=true
           
       - name: Build Project
         run: |
