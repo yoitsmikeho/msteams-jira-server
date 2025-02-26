@@ -64,12 +64,9 @@ jobs:
         run: |
           jf dotnet restore
           
-      #- name: JFrog Curation Audit
-      #  run: |
-      #    jf mvn-config --repo-resolve-releases mikeho-jvm-tasks-gradle-remote --repo-resolve-snapshots mikeho-jvm-tasks-gradle-remote --repo-deploy-releases mikeho-jvm-tasks-gradle-release-local --repo-deploy-snapshots mikeho-jvm-tasks-gradle-dev-local
-      #    echo "jvmtasksArtifactName=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)" >> $GITHUB_ENV
-      #    echo "jvmtasksVersion=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
-      #    jf curation-audit
+      - name: JFrog Curation Audit
+        run: |
+          jf curation-audit
       
       #- name: Audit Source Code
       #  run: |
@@ -94,10 +91,11 @@ jobs:
 
       - name: Upload Artifacts to Artifactory
         run: |
-          jf rt u "publish/jira" \
+          jf rt upload --build-name="${{ env.JFROG_CLI_BUILD_NAME }}" \
+            --build-number="${{ github.run_id }}" \
+            "publish/jira" \
             "mikeho-msteams-jira-nuget-local/dotnet-sample" \
-            --build-name="${{ env.JFROG_CLI_BUILD_NAME }}" \
-            --build-number="${{ github.run_id }}"
+            
           
       - name: Publish build info
         run: |
@@ -107,8 +105,7 @@ jobs:
           jf rt build-add-git --project ${{ env.JFROG_CLI_BUILD_PROJECT }} ${{ env.JFROG_CLI_BUILD_NAME }} ${{ env.JFROG_CLI_BUILD_NUMBER }}
           jf rt build-publish --project ${{ env.JFROG_CLI_BUILD_PROJECT }} ${{ env.JFROG_CLI_BUILD_NAME }} ${{ env.JFROG_CLI_BUILD_NUMBER }}
       
-      #- name: Scan build
-      #  if: github.ref == 'refs/heads/master'
-      #  run: |
-      #    jf build-scan --vuln --fail=false --project=${{ env.JFROG_CLI_BUILD_PROJECT }} ${{ env.JFROG_CLI_BUILD_NAME }} ${{ env.JFROG_CLI_BUILD_NUMBER }}  
+      - name: Scan build
+        run: |
+          jf build-scan --vuln --fail=false --project=${{ env.JFROG_CLI_BUILD_PROJECT }} ${{ env.JFROG_CLI_BUILD_NAME }} ${{ env.JFROG_CLI_BUILD_NUMBER }}  
      
