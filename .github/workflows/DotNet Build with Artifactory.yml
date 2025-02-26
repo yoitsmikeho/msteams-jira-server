@@ -81,7 +81,7 @@ jobs:
         run: jf dotnet test --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml"
 
       - name: Publish application
-        run: jf dotnet publish -c Release --output 'publish/jira'
+        run: jf dotnet publish -c Release -o 'publish/jira'
 
       - name: Upload Artifacts to Artifactory
         run: |
