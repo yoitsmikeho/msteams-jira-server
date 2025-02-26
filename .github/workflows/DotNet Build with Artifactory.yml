@@ -90,7 +90,7 @@ jobs:
       #    junit_files: ${{ github.workspace }}/tests/artifacts/*test-result.xml
           
       - name: Publish application
-        run: jf dotnet publish MicrosoftTeamsJiraIntegration.sln -c Release -o 'publish/jira'
+        run: jf dotnet publish -c Release -o 'publish/jira'
 
       - name: Upload Artifacts to Artifactory
         run: |
