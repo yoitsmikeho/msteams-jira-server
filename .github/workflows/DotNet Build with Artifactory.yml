@@ -22,14 +22,21 @@ jobs:
       JFROG_CLI_BUILD_NUMBER: ${{ github.run_number }}
       JFROG_CLI_BUILD_PROJECT: ${{ vars.JF_PROJECT }}
       JFROG_CLI_LOG_LEVEL: INFO
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        configuration: [Debug, Release]
+    runs-on: windows-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          clean: false
+
+      - name: Replace JiraMicrosoftTeamsIntegration version
+        uses: rvolo/xml-replace-action@v0.3
+        with:
+          filepath: "${{ github.workspace}}/src/MicrosoftTeamsIntegration.Jira/MicrosoftTeamsIntegration.Jira.csproj"
+          xpath: "/Project/PropertyGroup/Version/text()"
+          replace: "${{ github.run_number}}"
         
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v4
@@ -76,10 +83,17 @@ jobs:
             -c Release --no-restore \
             --build-name="${{ env.JFROG_CLI_BUILD_NAME }}" \
             --build-number="${{ github.run_id }}"
+        shell: powershell
 
       - name: Run Tests
-        run: jf dotnet test MicrosoftTeamsJiraIntegration.sln --no-build
+        run: jf dotnet test --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml"
 
+      - name: Publish test report
+        uses: EnricoMi/publish-unit-test-result-action/composite@v2
+        if: always()
+        with:
+          junit_files: ${{ github.workspace }}/tests/artifacts/*test-result.xml
+          
       - name: Publish application
         run: jf dotnet publish MicrosoftTeamsJiraIntegration.sln -c Release -o 'publish/jira'
 
