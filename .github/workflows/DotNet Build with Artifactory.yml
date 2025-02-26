@@ -92,12 +92,8 @@ jobs:
 
       - name: Upload Artifacts to Artifactory
         run: |
-          jf rt upload --build-name="${{ env.JFROG_CLI_BUILD_NAME }}" \
-            --build-number="${{ github.run_id }}" \
-            "publish/jira" \
-            "mikeho-msteams-jira-nuget-local/dotnet-sample" \
-            
-          
+          jf rt upload "publish/jira" "mikeho-msteams-jira-nuget-local/dotnet-sample"
+               
       - name: Publish build info
         run: |
           # Collect environment variables for the build
