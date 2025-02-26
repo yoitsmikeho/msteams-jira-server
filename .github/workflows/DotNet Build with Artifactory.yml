@@ -77,10 +77,7 @@ jobs:
           
       - name: Build Project
         run: |
-          jf dotnet build MicrosoftTeamsJiraIntegration.sln \
-            -c Release --no-restore \
-            --build-name="${{ env.JFROG_CLI_BUILD_NAME }}" \
-            --build-number="${{ github.run_id }}"
+          jf dotnet build MicrosoftTeamsJiraIntegration.sln -c Release --no-restore 
         shell: powershell
 
       - name: Run Tests
