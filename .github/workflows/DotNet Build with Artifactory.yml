@@ -62,9 +62,7 @@ jobs:
       
       - name: Restore Dependencies from Artifactory
         run: |
-          jf dotnet restore MicrosoftTeamsJiraIntegration.sln \
-            --build-name="${{ env.JFROG_CLI_BUILD_NAME }}" \
-            --build-number="${{ github.run_id }}"
+          jf dotnet restore
           
       #- name: JFrog Curation Audit
       #  run: |
