@@ -39,6 +39,7 @@
     <PackageReference Include="Refit.HttpClientFactory" Version="7.2.1" />
     <PackageReference Include="Sendgrid" Version="9.29.3" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164">
+    <PackageReference Include="Moq" Version="4.20.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
