@@ -34,11 +34,6 @@ jobs:
         with:
           dotnet-version: "8.0.x"
 
-      - name: DotNet Configure
-        run: |
-          jf dotnet-config --repo-resolve="mikeho-msteams-jira-nuget-remote"
-          jf nuget-config --repo-resolve="mikeho-msteams-jira-nuget-remote"
-
       - uses: jfrog/frogbot@v2.27.1
         with:
           oidc-provider-name: mikeho-github
@@ -71,7 +66,7 @@ jobs:
 
           # [Optional, default: "TRUE"]
           # Fails the Frogbot task if any security issue is found.
-          # JF_FAIL: "FALSE"
+          JF_FAIL: "FALSE"
 
           # [Optional]
           # Frogbot will download the project dependencies if they're not cached locally. To download the
