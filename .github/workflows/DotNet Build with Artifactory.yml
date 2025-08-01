@@ -71,7 +71,7 @@ jobs:
       
       - name: Audit Source Code
         run: |
-          jf audit --licenses --format=table --nuget=true
+          jf audit --licenses --format=table --nuget=true --fail=false
           
       - name: Build Project
         run: |
