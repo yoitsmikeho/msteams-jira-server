@@ -41,7 +41,7 @@ jobs:
       with:
         oidc-provider-name: mikeho-github
         oidc-audience: mikeho-audience
-        version: 2.77.0
+        version: 2.78.0
 
     - name: Run JFrog SAST
       env:
