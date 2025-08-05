@@ -43,6 +43,8 @@ jobs:
         oidc-audience: mikeho-audience
 
     - name: Run JFrog SAST
+      env:
+        JFROG_CLI_LOG_LEVEL: DEBUG
       run: |
         jf audit --sast --format=sarif > jfrog_sast.sarif
         #cat jfrog_sast.sarif
