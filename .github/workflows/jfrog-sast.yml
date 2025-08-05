@@ -45,7 +45,7 @@ jobs:
       run: |
         jf audit --sast --format=sarif > jfrog_sast.sarif
         #cat jfrog_sast.sarif
-        jf rt upload jfrog_sast.sarif grafana-plugins-generic-local/sarif
+        jf rt upload jfrog_sast.sarif grafana-plugins-generic-local/sarif/
 
     - name: Upload output to generate autofix
       uses: github/codeql-action/upload-sarif@v3
