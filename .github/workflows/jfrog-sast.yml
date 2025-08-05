@@ -37,6 +37,7 @@ jobs:
       uses: jfrog/setup-jfrog-cli@v4
       env:
         JF_URL: https://${{ vars.JF_URL }}/
+        JFROG_CLI_LOG_LEVEL: DEBUG
       with:
         oidc-provider-name: mikeho-github
         oidc-audience: mikeho-audience
